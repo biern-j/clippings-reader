@@ -41,7 +41,7 @@ module.exports = {
   mode: "production",
   plugins: [
     new HTMLWebpackPlugin({
-      template: "src/index.html",
+      template: "./src/index.html",
     }),
   ],
 };
