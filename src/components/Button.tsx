@@ -1,3 +1,6 @@
 import React from "react";
+import { ButtonPrimary } from "./buttonStyle";
 
-export const Button = () => <div className="button">Search</div>;
+export const Button = () => (
+  <ButtonPrimary className="button">Search</ButtonPrimary>
+);

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Button } from "./components/Button";
+import { Button } from "./components/button";
 
 const App = () => {
   return (
@@ -11,5 +11,4 @@ const App = () => {
   );
 };
 
-const app = document.getElementById("app");
-ReactDOM.render(<App />, app);
+ReactDOM.render(<App />, document.getElementById("app"));
