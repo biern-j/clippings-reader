@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Button } from './components/button'
-import { BookShell } from './pages/book-shell'
+import { BookShell } from './components/bookShell'
+import { GlobalStyle } from './indexStyle'
 
 import {
   ParseResult,
@@ -57,8 +58,8 @@ const bookClippings = [
 const App = () => {
   return (
     <div>
-      <Button />
       <BookShell bookClippings={bookClippings} />
+      <GlobalStyle />
     </div>
   )
 }
