@@ -1,67 +1,49 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import type { ParseResult, BookClippings } from "clippings-parser-wasm";
 
-import { Button } from './components/button'
-import { BookShell } from './components/bookShell'
-import { GlobalStyle } from './indexStyle'
+import { Button } from "./components/button";
+import { BookShell } from "./components/bookShell";
+import { GlobalStyle } from "./indexStyle";
 
-import {
-  ParseResult,
-  BookClippings,
-  ClippingContent,
-  Location,
-} from './bookingClippingsTypes'
+const wasm_mod = import("clippings-parser-wasm");
 
-const location: Location = {
-  from: 23,
-  to: 23,
-  kind: 'Location',
+async function parse(input: string) {
+  return wasm_mod.then((mod) => mod.parse(input));
 }
-const clippingContent: ClippingContent[] = [
-  { kind: 'ClippingHighlight', location: location, text: 'test' },
-  { kind: 'ClippingNote', location: location, text: 'string' },
-  { kind: 'ClippingBookmark', location: location },
-  { kind: 'ClippingArticleClip', location: location, text: 'string' },
-]
-
-const bookClippings = [
-  {
-    book: {
-      title: 'title',
-      author: 'author',
-    },
-    clippings: clippingContent,
-  },
-  {
-    book: {
-      title: 'title',
-      author: 'author',
-    },
-    clippings: clippingContent,
-  },
-  {
-    book: {
-      title: 'title',
-      author: 'author',
-    },
-    clippings: clippingContent,
-  },
-  {
-    book: {
-      title: 'title',
-      author: 'author',
-    },
-    clippings: clippingContent,
-  },
-]
 
 const App = () => {
+  const [books, setBooks] = useState<BookClippings[] | undefined>(undefined);
+  useEffect(() => {
+    parse(sampleClippingsTxt).then((books) => setBooks(books));
+  }, []);
+
+  console.log({ books });
+
   return (
     <div>
-      <BookShell bookClippings={bookClippings} />
+      {books ? <BookShell bookClippings={books} /> : "Loading"}
+
       <GlobalStyle />
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"));
+
+const sampleClippingsTxt = `Book 1 (Author X)\r
+- Your Highlight at location 1-100 | Added on Sunday, 12 July 2015 17:36:17\r
+\r
+Book 1 highlight 1 content.\r
+==========\r
+Book 1 (Author X)\r
+- Your Highlight at location 2-200 | Added on Sunday, 12 July 2015 17:36:17\r
+\r
+Book 1 highlight 2 content.\r
+==========\r
+Book 2 (Author Y)\r
+- Your Highlight at location 2-200 | Added on Sunday, 12 July 2015 17:36:17\r
+\r
+Book 2 highlight 2 content.\r
+==========\r
+`;

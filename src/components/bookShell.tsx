@@ -1,14 +1,9 @@
 import React from "react";
+import type { BookClippings, ParseResult } from "clippings-parser-wasm";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconName } from "@fortawesome/fontawesome-common-types";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { IconName } from "@fortawesome/fontawesome-common-types";
 
-import {
-  ParseResult,
-  BookClippings,
-  ClippingContent,
-  Location,
-} from "../bookingClippingsTypes";
 import {
   BooksShell,
   BookBox,
@@ -21,11 +16,11 @@ import {
 } from "./bookShellStyle";
 
 type Props = {
-  bookClippings: BookClippings[];
-  icon: IconName;
+  bookClippings: ParseResult;
+  // icon: IconName;
 };
 
-const icon = "coffee" as IconName;
+// const icon = "coffee" as IconName;
 
 export const BookShell = ({ bookClippings }: Props) => {
   return (
@@ -39,10 +34,9 @@ export const BookShell = ({ bookClippings }: Props) => {
                 <BookAuthor>{book.book.title}</BookAuthor>
               </BookHeader>
             </BookHeaderBox>
-            <a href="#">
-              <FontAwesomeIcon icon={icon} />
-            </a>
+            <a href="#">{/* <FontAwesomeIcon icon={icon} /> */}</a>
           </BookRecord>
+          {/* <BookClippings /> */}
         </BookBox>
       ))}
     </BooksShell>
