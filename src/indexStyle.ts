@@ -1,10 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 /*Abstract: variables */
-const colorBlack = "#000";
-const colorWhite = "#fff";
-const defaultFontSize = "2rem";
-const colorGrayDark = "#777";
+export const colorBlack = "#000";
+export const colorWhite = "#fff";
+export const defaultFontSize = "2rem";
+export const colorGrayDark = "#777";
+export const colorPrimary = "#F2E366";
 
 /*Abstract: utilities*/
 

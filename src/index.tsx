@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import type { ParseResult, BookClippings } from "clippings-parser-wasm";
 
-import { Button } from "./components/button";
 import { BookShell } from "./components/bookShell";
 import { GlobalStyle } from "./indexStyle";
 
