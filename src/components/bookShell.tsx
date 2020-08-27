@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import type {
   BookClippings,
   ParseResult,
   ClippingContent,
-} from "clippings-parser-wasm";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { IconName } from "@fortawesome/fontawesome-common-types";
+} from 'clippings-parser-wasm'
 
-import { BookClippingsList } from "./bookClippingsList";
+import { BookClippingsList } from './bookClippingsList'
 
-import { ButtonYellow } from "./buttonsStyle";
+import { ButtonYellow, ButtonBlue, ButtonOrange } from './buttonsStyle'
 
 import {
   BooksShell,
@@ -20,67 +18,134 @@ import {
   BookHeader,
   BookTitle,
   BookAuthor,
-} from "./bookShellStyle";
+  ButtonBox
+} from './bookShellStyle'
 
 type Props = {
-  bookClippings: ParseResult;
-  // icon: IconName;
-};
+  bookClippings: ParseResult
+}
+type ClippingKind = ClippingContent['kind']
 
-// const icon = "coffee" as IconName;
+const clippingsKindsList = ['Highligh', 'Note', 'ArticleClip']
 
 export const BookShell = ({ bookClippings }: Props) => {
-  // const [clippingFilter, setClippingFilter] = useState<string>("");
-  const [filteredClippings, setFilteredClippings] = useState<ClippingContent[]>(
-    []
-  );
+  const [filteredClippings, setFilteredClippings] = useState<
+    Array<{
+      clippingsItems: ClippingContent[]
+      toggle: boolean
+      id: string
+    }>
+  >([{ clippingsItems: [], toggle: false, id: '' }])
   return (
     <BooksShell>
-      {bookClippings.map((book: BookClippings) => (
+      {bookClippings.map((book: BookClippings, index) => (
         <BookBox>
           <BookRecord>
             <BookHeaderBox>
               <BookHeader>
                 <BookTitle>{book.book.title}</BookTitle>
-                <BookAuthor>{book.book.title}</BookAuthor>
+                <BookAuthor>{book.book.author}</BookAuthor>
               </BookHeader>
             </BookHeaderBox>
             <a href="#">{/* <FontAwesomeIcon icon={icon} /> */}</a>
           </BookRecord>
+          {/* {clippingsKindsList.map((kind: `${kind}`) => (
+            <ButtonYellow
+              href="#"
+              onClick={(e) => {
+                e.preventDefault
+                const highlightedClippings = getClippingsToRead(
+                  kind,
+                  book.clippings,
+                )
+                setFilteredClippings(highlightedClippings)
+              }}
+            >
+              Read `${kind}`
+            </ButtonYellow>
+          ))}
+          */}
+          <ButtonBox>
+          <ButtonBlue
+            href="#"
+            className="btn-read-notes"
+            onClick={(e) => {
+              e.preventDefault
+              const notedClippings = getClippingsToRead('Note', book.clippings)
+              setFilteredClippings([
+                ...filteredClippings,
+                {
+                  clippingsItems: notedClippings,
+                  toggle: true,
+                  id: `${notedClippings}-${index}`,
+                },
+              ])
+            }}
+          >
+            Read note
+          </ButtonBlue>
           <ButtonYellow
             href="#"
             className="btn-read-highlight"
             onClick={(e) => {
-              e.preventDefault;
+              e.preventDefault
               const highlightedClippings = getClippingsToRead(
-                "ClippingHighlight",
-                book.clippings
-              );
-              console.log("highlightedClippings", highlightedClippings);
-              setFilteredClippings(highlightedClippings);
+                'Highlight',
+                book.clippings,
+              )
+              setFilteredClippings([
+                ...filteredClippings,
+                {
+                  clippingsItems: highlightedClippings,
+                  toggle: true,
+                  id: `${highlightedClippings}-${index}`,
+                },
+              ])
             }}
           >
             Read highligh
           </ButtonYellow>
-
-          <BookClippingsList clipping={book.clippings} />
+          <ButtonOrange
+            href="#"
+            className="btn-read-articleClip"
+            onClick={(e) => {
+              e.preventDefault
+              const articleClip = getClippingsToRead(
+                'ArticleClip',
+                book.clippings,
+              )
+              setFilteredClippings([
+                ...filteredClippings,
+                {
+                  clippingsItems: articleClip,
+                  toggle: true,
+                  id: `${articleClip}-${index}`,
+                },
+              ])
+            }}
+          >
+            Read article
+          </ButtonOrange>
+          </ButtonBox>
+          {filteredClippings.map(
+            (item) =>
+              item.toggle && (
+                <BookClippingsList clippings={item.clippingsItems} />
+              ),
+          )}
         </BookBox>
       ))}
     </BooksShell>
-  );
-};
-
-type ClippingKind = ClippingContent["kind"];
+  )
+}
 
 const getClippingsToRead = <K extends ClippingKind>(
   clickedClippingKind: K,
-  bookClippings: ClippingContent[]
+  bookClippings: ClippingContent[],
 ): Array<Extract<ClippingContent, { kind: K }>> => {
   const result = bookClippings.filter(
-    (clippings) => clippings.kind === clickedClippingKind
-  ) as Array<Extract<ClippingContent, { kind: K }>>;
-  console.log("result", result);
-  return result;
-};
-
-const kindList = ["Highligh", "Note", "Bookmark", "ArticleClip"];
+    (clippings) => clippings.kind === clickedClippingKind,
+  ) as Array<Extract<ClippingContent, { kind: K }>>
+  console.log('result', result)
+  return result
+}

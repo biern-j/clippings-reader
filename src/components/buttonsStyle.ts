@@ -1,10 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import {
   colorBlack,
   colorWhite,
   colorPrimary,
+  colorSecondary,
+  colorTertiary,
   defaultFontSize,
-} from "../indexStyle";
+} from '../indexStyle'
 
 export const Button = styled.a`
   text-transform: uppercase;
@@ -12,7 +14,6 @@ export const Button = styled.a`
   padding: 1.5rem 4rem;
   display: inline-block;
   border-radius: 10rem;
-  transition: all 0.2s;
   &:link,
   &:visited {
     text-transform: uppercase;
@@ -20,37 +21,13 @@ export const Button = styled.a`
     padding: 1.5rem 4rem;
     display: inline-block;
     border-radius: 10rem;
-    transition: all 0.2s;
     position: relative;
   }
 
   &:hover {
-    transform: translateY(-0.3rem);
     box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.2);
-
-    &::after {
-      background-color: ${colorWhite};
-      transform: scaleX(1.4) scaleY(1.6);
-    }
   }
-  &:active {
-    transform: translateY(-0.1rem);
-    box-shadow: 0 0.5rem 1rem rgba(${colorBlack}, 0.2);
-  }
-
-  &::after {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border-radius: 10rem;
-    transition: all 0.4s;
-  }
-`;
+`
 
 export const ButtonText = styled.a`
   &:link,
@@ -61,25 +38,54 @@ export const ButtonText = styled.a`
     border-bottom: 1px solid ${colorPrimary};
     padding: 3px;
     font-size: ${defaultFontSize};
-    transition: all 0.2s;
   }
   &:hover {
     background-color: ${colorPrimary};
     color: ${colorWhite};
     box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.15);
-    transform: translateY(-2px);
   }
   &:active {
     box-shadow: 0 0.5rem 2rem rgba(${colorBlack}, 0.15);
-    transform: translateY(0);
   }
-`;
+`
 
 export const ButtonYellow = styled(Button)`
   background-color: ${colorPrimary};
   color: ${colorWhite};
 
-  &::after {
-    color: ${colorPrimary};
+  &:hover {
+    background-color: ${colorPrimary};
+    color: ${colorBlack};
+    box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.15);
   }
-`;
+  &:active {
+    box-shadow: 0 0.5rem 2rem rgba(${colorBlack}, 0.15);
+  }
+`
+
+export const ButtonBlue = styled(Button)`
+  background-color: ${colorSecondary};
+  color: ${colorWhite};
+
+  &:hover {
+    background-color: ${colorSecondary};
+    color: ${colorBlack};
+    box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.15);
+  }
+  &:active {
+    box-shadow: 0 0.5rem 2rem rgba(${colorBlack}, 0.15);
+  }
+`
+export const ButtonOrange = styled(Button)`
+  background-color: ${colorTertiary};
+  color: ${colorWhite};
+
+  &:hover {
+    background-color: ${colorTertiary};
+    color: ${colorBlack};
+    box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.15);
+  }
+  &:active {
+    box-shadow: 0 0.5rem 2rem rgba(${colorBlack}, 0.15);
+  }
+`
