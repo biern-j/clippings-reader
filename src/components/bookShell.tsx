@@ -26,15 +26,20 @@ type Props = {
 }
 type ClippingKind = ClippingContent['kind']
 
-const clippingsKindsList = ['Highligh', 'Note', 'ArticleClip']
+const clippingsKindsList = ['Note', 'ArticleClip', 'Highlight', 'Bookmark']
 
 export const BookShell = ({ bookClippings }: Props) => {
   const [filteredClippings, setFilteredClippings] = useState<{
     clippingsItems: ClippingContent[]
     toggle: boolean
     id: string
-  }>({ clippingsItems: [], toggle: false, id: '' })
-  const toggledBook = (bookId: string) => filteredClippings.id === bookId
+    clippingsKind?: ClippingKind
+  }>({
+    clippingsItems: [],
+    toggle: false,
+    id: '',
+  })
+
   return (
     <BooksShell>
       {bookClippings.map((book: BookClippings, index) => (
@@ -48,83 +53,33 @@ export const BookShell = ({ bookClippings }: Props) => {
             </BookHeaderBox>
             <a href="#">{/* <FontAwesomeIcon icon={icon} /> */}</a>
           </BookRecord>
-          {/* {clippingsKindsList.map((kind: `${kind}`) => (
-            <ButtonYellow
-              href="#"
-              onClick={(e) => {
-                e.preventDefault
-                const highlightedClippings = getClippingsToRead(
-                  kind,
-                  book.clippings,
-                )
-                setFilteredClippings(highlightedClippings)
-              }}
-            >
-              Read `${kind}`
-            </ButtonYellow>
-          ))}
-          */}
-          <ButtonBox>
-            <ButtonBlue
-              href="#"
-              className="btn-read-notes"
-              onClick={(e) => {
-                e.preventDefault
-                const notedClippings = getClippingsToRead(
-                  'Note',
-                  book.clippings,
-                )
-                const bookToToggle = toggledBook(book.book.title)
-                setFilteredClippings({
-                  clippingsItems: notedClippings,
-                  toggle: !filteredClippings.toggle,
-                  id: book.book.title,
-                })
-              }}
-            >
-              Read note
-            </ButtonBlue>
-            <ButtonYellow
-              href="#"
-              className="btn-read-highlight"
-              onClick={(e) => {
-                e.preventDefault
-                const highlightedClippings = getClippingsToRead(
-                  'Highlight',
-                  book.clippings,
-                )
-                const bookToToggle = toggledBook(book.book.title)
-                setFilteredClippings({
-                  clippingsItems: highlightedClippings,
-                  toggle: !filteredClippings.toggle,
-                  id: book.book.title,
-                })
-              }}
-            >
-              Read highligh
-            </ButtonYellow>
-            {/* <ButtonOrange
-              href="#"
-              className="btn-read-articleClip"
-              onClick={(e) => {
-                e.preventDefault
-                const articleClip = getClippingsToRead(
-                  'ArticleClip',
-                  book.clippings,
-                )
 
-                setFilteredClippings([
-                  ...filteredClippings,
-                  {
-                    clippingsItems: articleClip,
-                    toggle: !toggledBook(book.book.title)[0].toggle,
+          <ButtonBox>
+            {clippingsKindsList.map((kind) => (
+              <ButtonYellow
+                toggle={
+                  filteredClippings.toggle &&
+                  filteredClippings.id === book.book.title &&
+                  filteredClippings.clippingsKind === kind
+                }
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault
+                  const highlightedClippings = getClippingsToRead(
+                    kind as ClippingKind,
+                    book.clippings,
+                  )
+                  setFilteredClippings({
+                    clippingsItems: highlightedClippings,
+                    toggle: !filteredClippings.toggle,
                     id: book.book.title,
-                  },
-                ])
-              }}
-            >
-              Read article
-            </ButtonOrange> */}
+                    clippingsKind: kind as ClippingKind,
+                  })
+                }}
+              >
+                {`Read ${kind}`}
+              </ButtonYellow>
+            ))}
           </ButtonBox>
           {filteredClippings.toggle &&
             filteredClippings.id === book.book.title && (

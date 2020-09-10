@@ -49,17 +49,13 @@ export const ButtonText = styled.a`
   }
 `
 
-export const ButtonYellow = styled(Button)`
-  background-color: ${colorPrimary};
+export const ButtonYellow = styled(Button)<{ toggle: boolean }>`
   color: ${colorWhite};
+  background-color: ${({ toggle }) => (toggle ? colorSecondary : colorPrimary)};
 
   &:hover {
-    background-color: ${colorPrimary};
-    color: ${colorBlack};
+    background-color: ${colorSecondary};
     box-shadow: 0 1rem 2rem rgba(${colorBlack}, 0.15);
-  }
-  &:active {
-    box-shadow: 0 0.5rem 2rem rgba(${colorBlack}, 0.15);
   }
 `
 
