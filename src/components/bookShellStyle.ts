@@ -48,4 +48,5 @@ export const BookTitle = styled(HeaderPrimaryMain)``
 export const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `
