@@ -18,6 +18,17 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.txt$/i,
+        use: [
+          {
+            loader: "raw-loader",
+            options: {
+              esModule: true,
+            },
+          },
+        ],
+      },
+      {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
         use: [

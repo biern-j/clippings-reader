@@ -10,7 +10,7 @@ type PropsTypes = {
 
 type ClippingKind = ClippingContent["kind"];
 
-const clippingsKindsList = ["Note", "Highlight"];
+const clippingsKindsList: ClippingKind[] = ["Note", "Highlight"];
 
 export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
   const [filteredClippings, setFilteredClippings] = useState<{
@@ -37,14 +37,14 @@ export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
             onClick={(e) => {
               e.preventDefault;
               const highlightedClippings = getClippingsToRead(
-                kind as ClippingKind,
+                kind,
                 chosenBook.clippings
               );
               setFilteredClippings({
                 clippingsItems: highlightedClippings,
                 toggle: !filteredClippings.toggle,
                 id: chosenBook.book.title,
-                clippingsKind: kind as ClippingKind,
+                clippingsKind: kind,
               });
             }}
           >

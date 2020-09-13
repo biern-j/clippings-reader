@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import type { ParseResult, BookClippings } from "clippings-parser-wasm";
 
 import { BookShell } from "./components/bookShell";
 import { GlobalStyle } from "./indexStyle";
 
+const textTest = require("./sample.txt");
 const wasm_mod = import("clippings-parser-wasm");
 
 async function parse(input: string) {
@@ -13,14 +14,33 @@ async function parse(input: string) {
 
 const App = () => {
   const [books, setBooks] = useState<BookClippings[] | undefined>(undefined);
-  useEffect(() => {
-    parse(sampleClippingsTxt).then((books) => setBooks(books));
-  }, []);
 
   console.log({ books });
 
+  const onButtonClick = async (files: FileList) => {
+    const text = await files[0].text();
+
+    const parsedText = await parse(textTest.default);
+    console.log(
+      "text",
+      text,
+      "parsedText",
+      parsedText,
+      "textTest",
+      textTest.default
+    );
+    setBooks(parsedText);
+  };
+
   return (
     <div>
+      <input
+        type="file"
+        onChange={(e) => {
+          e.preventDefault();
+          onButtonClick(e.target.files!);
+        }}
+      />
       {books ? <BookShell bookClippings={books} /> : "Loading"}
 
       <GlobalStyle />
