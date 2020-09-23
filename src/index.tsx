@@ -33,7 +33,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
       <input
         type="file"
         onChange={(e) => {
@@ -44,7 +44,7 @@ const App = () => {
       {books ? <BookShell bookClippings={books} /> : "Loading"}
 
       <GlobalStyle />
-    </div>
+    </>
   );
 };
 

@@ -8,17 +8,14 @@ import {
   uMarginBottomBig,
 } from "../indexStyle";
 
-type BookImageAttrsType = {
-  src: string;
-};
-export const BooksShell = styled(Container)`
+export const BooksShell = styled.section`
   display: flex;
   justify-content: center;
   align-content: space-evenly;
   flex-direction: column;
 `;
 
-export const BookBox = styled.div`
+export const BookBox = styled.article`
   height: 50rem;
   text-align: center;
 `;
@@ -26,20 +23,9 @@ export const BookBox = styled.div`
 export const BookRecord = styled.button`
   border: none;
   background: none;
+  cursor: pointer;
 `;
-
-export const BookCover = styled.div`
-  background-image: url("../src/assets/niesamowita-slowianszczyzna.png");
-  background-size: cover;
-  width: 100%;
-  height: 45rem;
-`;
-
-/*export const BookCover = styled.img.attrs <BookImageAttrsType>(
-  { src: "../src/assets/niesamowita-slowianszczyzna.png" })
-<BookImageAttrsType>``; */
-
-export const BookHeaderBox = styled.div`
+export const BookHeaderBox = styled.header`
   ${uCenterText};
   ${uMarginBottomBig};
 `;

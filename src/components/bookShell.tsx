@@ -11,7 +11,6 @@ import {
   BooksShell,
   BookBox,
   BookRecord,
-  BookCover,
   BookHeaderBox,
   BookHeader,
   BookTitle,
@@ -41,7 +40,6 @@ export const BookShell = ({ bookClippings }: Props) => {
                 <BookAuthor>{book.book.author}</BookAuthor>
               </BookHeader>
             </BookHeaderBox>
-            <a href="#">{/* <FontAwesomeIcon icon={icon} /> */}</a>
           </BookRecord>
           {book.book.title === toggledBookTitle && (
             <BookClippingsList chosenBook={book} />

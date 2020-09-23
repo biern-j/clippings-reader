@@ -55,9 +55,6 @@ export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
 
       <div className="ClippingList ul">
         <div className="Clipping li">
-          {/* {filteredClippings.clippingsItems.filter(
-            (item) => item.kind === "Highlight"
-          )} */}
           {filteredClippings.clippingsItems.map((clipping) =>
             clipping.kind === "Bookmark" ? clipping.location : clipping.text
           )}
