@@ -26,6 +26,10 @@ export const BookShell = ({ bookClippings }: Props) => {
   const [toggledBookTitle, onBookToggle] = useState<string>("");
   return (
     <BooksShell>
+      <label htmlFor="search">&nbsp;</label>
+      <input id="search" type="text" />
+      <input type="submit" name="submit" value="Submit Search" />
+
       {bookClippings.map((book: BookClippings, index) => (
         <BookBox key={`${book.book.title}`}>
           <BookRecord

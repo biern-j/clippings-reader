@@ -34,13 +34,16 @@ const App = () => {
 
   return (
     <>
+      <label htmlFor="file">&nbsp;</label>
       <input
+        id="file"
         type="file"
         onChange={(e) => {
           e.preventDefault();
           onButtonClick(e.target.files!);
         }}
       />
+
       {books ? <BookShell bookClippings={books} /> : "Loading"}
 
       <GlobalStyle />
