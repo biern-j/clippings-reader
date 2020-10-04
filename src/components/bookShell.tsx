@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from "react";
-import type {
-  BookClippings,
-  ParseResult,
-  ClippingContent,
-} from "clippings-parser-wasm";
+import React, { useState, useEffect, useRef } from "react";
+import type { BookClippings, ParseResult } from "clippings-parser-wasm";
 
 import { BookClippingsList } from "./bookClippingsList";
 
@@ -15,27 +11,61 @@ import {
   BookHeader,
   BookTitle,
   BookAuthor,
-  ButtonBox,
 } from "./bookShellStyle";
 
 type Props = {
   bookClippings: ParseResult;
 };
 
+const useDebounce = (searchedBook: string, searchBook: any) => {
+  const timerId = useRef<number | undefined>();
+  useEffect(() => {
+    clearTimeout(timerId.current);
+
+    timerId.current = setTimeout(() => {
+      searchBook(searchedBook);
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId.current);
+    };
+  }, [searchedBook]);
+};
+
 export const BookShell = ({ bookClippings }: Props) => {
-  const [toggledBookTitle, onBookToggle] = useState<string>("");
+  const [toggledBookTitle, setBookToggle] = useState("");
+  const [searchedBook, setSearchedBook] = useState("");
+  const [foundBook, setFoundBook] = useState<BookClippings | null>();
+
+  const searchBook = (userPhrase: string) => {
+    console.log("search book", userPhrase);
+    setFoundBook(
+      bookClippings.find((book) => book.book.title.includes(userPhrase))
+    );
+    console.log("foundBook", foundBook);
+  };
+
+  useDebounce(searchedBook, searchBook);
+
   return (
     <BooksShell>
       <label htmlFor="search">&nbsp;</label>
-      <input id="search" type="text" />
-      <input type="submit" name="submit" value="Submit Search" />
+      <input
+        id="search"
+        type="text"
+        value={searchedBook}
+        onChange={(e) => {
+          e.preventDefault();
+          setSearchedBook(e.target.value);
+        }}
+      />
 
       {bookClippings.map((book: BookClippings, index) => (
         <BookBox key={`${book.book.title}`}>
           <BookRecord
             onClick={(e) => {
               e.preventDefault();
-              onBookToggle(book.book.title);
+              setBookToggle(book.book.title);
             }}
           >
             <BookHeaderBox>

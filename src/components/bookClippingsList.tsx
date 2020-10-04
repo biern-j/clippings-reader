@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import type { ClippingContent, BookClippings } from "clippings-parser-wasm";
-
+import type { BookClippings, ClippingContent } from "clippings-parser-wasm";
+import React, { useState } from "react";
 import { useQueryString } from "../lib/useQueryString";
-import { getQueryStringValue } from "../lib/queryString";
-
 import { ButtonBox } from "./bookShellStyle";
 import { ButtonYellow } from "./buttonsStyle";
 
