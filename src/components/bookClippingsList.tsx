@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import type { ClippingContent, BookClippings } from "clippings-parser-wasm";
 
+import { useQueryString } from "../lib/useQueryString";
+import { getQueryStringValue } from "../lib/queryString";
+
 import { ButtonBox } from "./bookShellStyle";
 import { ButtonYellow } from "./buttonsStyle";
 
@@ -13,6 +16,10 @@ type ClippingKind = ClippingContent["kind"];
 const clippingsKindsList: ClippingKind[] = ["Note", "Highlight"];
 
 export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
+  // const filterFromUrl: ClippingKind = clippingsKindsList.include(
+  //   getQueryStringValue("?filter")
+  // );
+  // console.log("filterFromUrl", filterFromUrl);
   const [filteredClippings, setFilteredClippings] = useState<{
     clippingsItems: ClippingContent[];
     toggle: boolean;
@@ -46,6 +53,8 @@ export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
                 id: chosenBook.book.title,
                 clippingsKind: kind,
               });
+              const filterFromUrl = useQueryString("filter", kind);
+              console.log("filterFromUrl", filterFromUrl);
             }}
           >
             {`Read ${kind}`}
