@@ -38,11 +38,9 @@ export const BookShell = ({ bookClippings }: Props) => {
   const [foundBook, setFoundBook] = useState<BookClippings | null>();
 
   const searchBook = (userPhrase: string) => {
-    console.log("search book", userPhrase);
     setFoundBook(
       bookClippings.find((book) => book.book.title.includes(userPhrase))
     );
-    console.log("foundBook", foundBook);
   };
 
   useDebounce(searchedBook, searchBook);

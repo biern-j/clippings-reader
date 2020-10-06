@@ -5,6 +5,10 @@ import type { ParseResult, BookClippings } from "clippings-parser-wasm";
 import { BookShell } from "./components/bookShell";
 import { GlobalStyle } from "./indexStyle";
 
+import { BookClippingsList } from "./components/bookClippingsList";
+
+import { setQueryStringValue, getQueryStringValue } from "./lib/queryString";
+
 const textTest = require("./sample.txt");
 const wasm_mod = import("clippings-parser-wasm");
 
@@ -17,10 +21,15 @@ const App = () => {
   useEffect(() => {
     const getBooks = async () => {
       const result = await parse(textTest.default);
+      console.log("test");
+
       setBooks(result);
     };
     getBooks();
   }, []);
+
+  const queryFilterValue = getQueryStringValue("?filter");
+  console.log("queryFilterValue", queryFilterValue);
 
   // const onButtonClick = async (files: FileList) => {
   //   const text = await files[0].text();
@@ -49,7 +58,29 @@ const App = () => {
           onButtonClick(e.target.files!);
         }}
       />*/}
-      {books ? <BookShell bookClippings={books} /> : "Loading"}
+      {/* {books ? <BookShell bookClippings={books} /> : "Loading"} */}
+      {queryFilterValue ? (
+        <div>
+          {books
+            ? books
+                .find(
+                  (book) =>
+                    `${book.book.title}-Highlight` === queryFilterValue ||
+                    `${book.book.title}-Note` === queryFilterValue
+                )
+                ?.clippings.map((clipping) =>
+                  clipping.kind === "Bookmark"
+                    ? clipping.location
+                    : clipping.text
+                )
+            : "loading"}
+        </div>
+      ) : books ? (
+        <BookShell bookClippings={books} />
+      ) : (
+        "Loading"
+      )}
+
       <GlobalStyle />
     </>
   );
