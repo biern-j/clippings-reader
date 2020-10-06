@@ -14,27 +14,33 @@ async function parse(input: string) {
 
 const App = () => {
   const [books, setBooks] = useState<BookClippings[] | undefined>(undefined);
+  useEffect(() => {
+    const getBooks = async () => {
+      const result = await parse(textTest.default);
+      setBooks(result);
+    };
+    getBooks();
+  }, []);
 
-  console.log({ books });
+  // const onButtonClick = async (files: FileList) => {
+  //   const text = await files[0].text();
 
-  const onButtonClick = async (files: FileList) => {
-    const text = await files[0].text();
-
-    const parsedText = await parse(textTest.default);
-    console.log(
-      "text",
-      text,
-      "parsedText",
-      parsedText,
-      "textTest",
-      textTest.default
-    );
-    setBooks(parsedText);
-  };
+  //   const parsedText = await parse(textTest.default);
+  //   console.log(
+  //     "text",
+  //     text,
+  //     "parsedText",
+  //     parsedText,
+  //     "textTest",
+  //     textTest.default
+  //   );
+  //   setBooks(parsedText);
+  // };
 
   return (
     <>
-      <label htmlFor="file">&nbsp;</label>
+      {/* reset  */}
+      {/* <label htmlFor="file">&nbsp;</label>
       <input
         id="file"
         type="file"
@@ -42,10 +48,8 @@ const App = () => {
           e.preventDefault();
           onButtonClick(e.target.files!);
         }}
-      />
-
+      />*/}
       {books ? <BookShell bookClippings={books} /> : "Loading"}
-
       <GlobalStyle />
     </>
   );
