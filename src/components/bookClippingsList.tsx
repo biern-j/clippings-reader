@@ -2,7 +2,10 @@ import type { BookClippings, ClippingContent } from "clippings-parser-wasm";
 import React, { useState } from "react";
 import { useQueryString } from "../lib/useQueryString";
 import { getQueryStringValue, setQueryStringValue } from "../lib/queryString";
-import { ButtonBox } from "./bookShellStyle";
+
+import {ClippingsList} from './clippingList';
+
+import { ButtonBox } from "./bookClippingsStyle";
 import { ButtonYellow } from "./buttonsStyle";
 
 type PropsTypes = {
@@ -34,7 +37,7 @@ export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
               filteredClippings.id === chosenBook.book.title &&
               filteredClippings.clippingsKind === kind
             }
-            href="#"
+            href="#popup-cliping"
             onClick={(e) => {
               e.preventDefault;
               const highlightedClippings = getClippingsToRead(
@@ -50,18 +53,11 @@ export const BookClippingsList = ({ chosenBook }: PropsTypes) => {
               setQueryStringValue("filter", `${chosenBook.book.title}-${kind}`);
             }}
           >
-            {`Read ${kind}`}
+            {kind}
           </ButtonYellow>
         ))}
       </ButtonBox>
-
-      <div className="ClippingList ul">
-        <div className="Clipping li">
-          {filteredClippings.clippingsItems.map((clipping) =>
-            clipping.kind === "Bookmark" ? clipping.location : clipping.text
-          )}
-        </div>
-      </div>
+      <ClippingsList filteredClippings={filteredClippings.clippingsItems} />
     </div>
   );
 };

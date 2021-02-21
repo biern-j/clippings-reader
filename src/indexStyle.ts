@@ -52,24 +52,28 @@ body {
 }
 `;
 
+export const HeaderContainer = styled.header`
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+
 export const HeaderPrimary = styled.h1`
   color: ${colorBlack};
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 `;
 
 export const HeaderPrimaryMain = styled.span`
   display: block;
-  font-size: 6rem;
+  font-size: 2rem;
   font-weight: 100;
-  letter-spacing: 3.5rem;
 `;
 
 export const HeaderPrimarySub = styled.span`
   display: block;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 1200;
-  letter-spacing: 1.75rem;
 `;
 
 export const HeaderSecondary = styled.h2`

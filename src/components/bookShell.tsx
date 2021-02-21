@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import type { BookClippings, ParseResult } from "clippings-parser-wasm";
 
-import { BookClippingsList } from "./bookClippingsList";
+import {Book} from "./book"
 
 import {
   BooksShell,
-  BookBox,
-  BookRecord,
-  BookHeaderBox,
-  BookHeader,
-  BookTitle,
-  BookAuthor,
+  BooksShellLabel
 } from "./bookShellStyle";
 
 type Props = {
@@ -33,7 +28,6 @@ const useDebounce = (searchedBook: string, searchBook: any) => {
 };
 
 export const BookShell = ({ bookClippings }: Props) => {
-  const [toggledBookTitle, setBookToggle] = useState("");
   const [searchedBook, setSearchedBook] = useState("");
   const [foundBook, setFoundBook] = useState<BookClippings | null>();
 
@@ -47,37 +41,24 @@ export const BookShell = ({ bookClippings }: Props) => {
 
   return (
     <BooksShell>
-      <label htmlFor="search">&nbsp;</label>
+      <BooksShellLabel htmlFor="search">&nbsp;</BooksShellLabel>
       <input
         id="search"
         type="text"
         value={searchedBook}
+        placeholder="Search your book's clippings"
         onChange={(e) => {
           e.preventDefault();
           setSearchedBook(e.target.value);
         }}
       />
+      <div className="book-container">
 
       {bookClippings.map((book: BookClippings, index) => (
-        <BookBox key={`${book.book.title}`}>
-          <BookRecord
-            onClick={(e) => {
-              e.preventDefault();
-              setBookToggle(book.book.title);
-            }}
-          >
-            <BookHeaderBox>
-              <BookHeader>
-                <BookTitle>{book.book.title}</BookTitle>
-                <BookAuthor>{book.book.author}</BookAuthor>
-              </BookHeader>
-            </BookHeaderBox>
-          </BookRecord>
-          {book.book.title === toggledBookTitle && (
-            <BookClippingsList chosenBook={book} />
-          )}
-        </BookBox>
+        <Book book={book.book} clippings={book.clippings}/>
+        
       ))}
+      </div>
     </BooksShell>
   );
 };

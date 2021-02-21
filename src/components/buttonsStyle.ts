@@ -9,19 +9,15 @@ import {
 } from '../indexStyle'
 
 export const Button = styled.a`
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.5rem 4rem;
-  display: inline-block;
-  border-radius: 10rem;
   &:link,
   &:visited {
     text-transform: uppercase;
     text-decoration: none;
-    padding: 1.5rem 4rem;
+    padding: 0.5rem;
     display: inline-block;
-    border-radius: 10rem;
     position: relative;
+    margin: 1rem;
+    font-weight: 700;
   }
 
   &:hover {

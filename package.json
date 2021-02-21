@@ -45,6 +45,7 @@
     "file-loader": "^6.1.0",
     "html-loader": "^1.2.0",
     "html-webpack-plugin": "^4.3.0",
+    "normalize.css": "^8.0.1",
     "prettier": "^2.0.5",
     "qs": "^6.9.4",
     "raw-loader": "^4.0.1",

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import type { ParseResult, BookClippings } from "clippings-parser-wasm";
 
 import { BookShell } from "./components/bookShell";
-import { GlobalStyle } from "./indexStyle";
+import { GlobalStyle, HeaderPrimary, HeaderContainer } from "./indexStyle";
 
 import { BookClippingsList } from "./components/bookClippingsList";
 
@@ -48,6 +48,7 @@ const App = () => {
 
   return (
     <>
+    <HeaderContainer ><HeaderPrimary>My clippings</HeaderPrimary></HeaderContainer>
       {/* reset  */}
       {/* <label htmlFor="file">&nbsp;</label>
       <input
@@ -80,7 +81,6 @@ const App = () => {
       ) : (
         "Loading"
       )}
-
       <GlobalStyle />
     </>
   );
